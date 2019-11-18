@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Really Simply GPS Redirecting</title>
+    </head>
+    <body style="background-color:rgb(255, 212, 135);">
+
+        <h2 style="font-family: monospace; text-align: center;margin-top: 45vh; color:#191d25;">Redirecting to GPS 🛰</h2>
+        <h4 style="font-family: monospace; text-align: center; color:#191d25;">Made with ❤️ by <a href="https:github.com">Anders Wiggers</a></h4>
+        <script>
+            /* Gets the query parameter from the browser */
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                var results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+            };
+
+            function mapsSelector() {
+                if /* if we're on iOS, open in Apple Maps */
+                    ((navigator.platform.indexOf("iPhone") != -1) || 
+                    (navigator.platform.indexOf("iPad") != -1) || 
+                    (navigator.platform.indexOf("iPod") != -1))
+                    window.location.href = `maps://maps.google.com/maps?daddr=${getUrlParameter('lat')},${getUrlParameter('long')}&amp;ll=`
+                else /* else use Google */
+                    window.location.href= `https://maps.google.com/maps?daddr=${getUrlParameter('lat')},${getUrlParameter('long')}&amp;ll=`
+                }
+            
+            document.onload = mapsSelector()
+        </script>
+    </body>
+</html>
